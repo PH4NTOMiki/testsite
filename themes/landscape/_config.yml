@@ -1,11 +1,18 @@
 # Header
 menu:
-  Home: /
-  Archives: /archives
+  Početna: /
+  Arhiva: /arhiva
+  Podaci: /podaci
+  Školski list: /skolski-list
+  Kontakt: /kontakt
+  Nastavni kadar: /nastavni-kadar
+  Tehničko osoblje: /tehnicko-osoblje
+  Galerija: /galerija
+  Javne nabavke: /javne-nabavke
 rss: /atom.xml
 
 # Content
-excerpt_link: Read More
+excerpt_link: Pročitaj više
 fancybox: true
 
 # Sidebar
