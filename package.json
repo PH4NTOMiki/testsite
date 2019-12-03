@@ -23,7 +23,6 @@
     "hexo-renderer-marked": "^2.0.0",
     "hexo-renderer-stylus": "^1.1.0",
     "hexo-server": "^1.0.0",
-    "hexo-thumbnails": "0.0.6",
-    "node-thumbnail": "^0.15.0"
+    "image-thumbnail": "^1.0.4"
   }
 }
