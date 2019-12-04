@@ -1,4 +1,4 @@
-hexo.extend.filter.register('after_generate', function(){
+hexo.extend.filter.register('before_exit', function(){
 	var fs = require('hexo-fs'), path = require('path');
 	var arr = [];
 	JSON.parse(fs.readFileSync(path.join(__dirname,'..','public','feed.json'))).items.forEach(function(item){
