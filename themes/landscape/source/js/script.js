@@ -136,55 +136,24 @@
   });
   
 	if(window.location.pathname.indexOf("/pretraga")>-1){
-    window.lunrIndex;
+    window.fuse;
     window.allPosts = [];
     $.getJSON('/json-feed.json',function(response){
         allPosts = response;
-        lunrIndex = lunr(function() {
-            this.field("title", {
-                boost: 10
-            });
-            this.field("description", {
-                boost: 5
-            });
-            this.ref("uri");
-            for (var i = 0; i < allPosts.length; ++i) {
-                this.add(allPosts[i]);
-            }
-        });
+		fuse = new Fuse(allPosts,{shouldSort:true,threshold:0.4,location:0,distance:100,maxPatternLength:32,minMatchCharLength:1,keys:["title","uri","description"]});
+        
     }).fail(console.error);
-    // document.getElementById("search-button").onclick = function() {
-        // search();
-    // };
+    document.getElementById("search-button").onclick = function(){search();};
 
     window.search=function search(query) {
         document.getElementById("results").innerHTML = "";
-        //let query = document.getElementById("search-field").value;
-        let results = lunrIndex.search(query).map(function(result){
-            return allPosts.filter(page => {
-                return page.uri === result.ref && result.score > 4;
-            })[0];
-        });
-        let totalResults;
-        results = results.filter(function(p){return !!p;});
-        document.createElement("h1");
-        for (let i = 0; i < 20 && i < results.length; i++) {
-            let header = document.createElement("h2");
-            let anchor = document.createElement("a");
-            anchor.setAttribute("href", results[i].uri);
-            anchor.innerText = results[i].title;
-            header.appendChild(anchor);
-            document.getElementById("results").appendChild(header);
-            document.getElementById("found").innerText = `Found ${
-results.length
-} results - showing ${i+1}`;
+        var results = fuse.search(query || document.getElementById("search-field").value),resArr=[],i;
+        for (i = 0; i < 20 && i < results.length; i++) {
+			resArr.push('<h2><a href="'+results[i].uri+'">'+results[i].title+'</a></h2>');
         }
+		document.getElementById("results").innerHTML = resArr.join('');
+		document.getElementById("found").innerText = 'Pronađeno '+results.length+' rezultata - prikazano '+(i+1);
     }
-    // document.getElementById("search-field").addEventListener("keydown", function(event) {
-        // if (event.key === "Enter") {
-            // event.preventDefault();
-            // search();
-        // }
-    // });
+    document.getElementById("search-field").addEventListener("keydown",function(event){if(event.key === "Enter"){event.preventDefault();search();}});
 }
 })(jQuery);
