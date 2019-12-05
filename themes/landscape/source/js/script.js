@@ -140,7 +140,7 @@
     window.allPosts = [];
     $.getJSON('/json-feed.json',function(response){
         allPosts = response;
-		fuse = new Fuse(allPosts,{shouldSort:true,threshold:0.4,location:0,distance:100,maxPatternLength:32,minMatchCharLength:1,keys:["title","uri","description"]});
+		fuse = new Fuse(allPosts,{shouldSort:true,threshold:0.4,location:0,distance:100,maxPatternLength:32,minMatchCharLength:1,keys:["t","u","c"]});
         
     }).fail(console.error);
     document.getElementById("search-button").onclick = function(){search();};
@@ -149,7 +149,7 @@
         document.getElementById("results").innerHTML = "";
         var results = fuse.search(query || document.getElementById("search-field").value),resArr=[],i;
         for (i = 0; i < 20 && i < results.length; i++) {
-			resArr.push('<h2><a href="'+results[i].uri+'">'+results[i].title+'</a></h2>');
+			resArr.push('<h2><a href="'+results[i].u+'">'+results[i].t+'</a></h2>');
         }
 		document.getElementById("results").innerHTML = resArr.join('');
 		document.getElementById("found").innerText = 'Pronađeno '+results.length+' rezultata - prikazano '+(i+1);
