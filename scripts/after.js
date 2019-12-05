@@ -1,6 +1,6 @@
 hexo.extend.filter.register('before_exit', function(){
 	var fs = require('hexo-fs'), path = require('path');
-	var arr = [], url = hexo.config.url + '/';
+	var arr = [], url = hexo.config.url;
 	if(fs.existsSync(path.join(__dirname,'..','public','feed.json'))){
 	JSON.parse(fs.readFileSync(path.join(__dirname,'..','public','feed.json'))).items.forEach(function(item){
 		let curr={t:item.title,u:item.id.replace(url,''),c:''};
