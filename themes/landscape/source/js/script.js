@@ -134,26 +134,20 @@
 
     $container.removeClass('mobile-nav-on');
   });
-  
+	function urlParam(name){var res=new RegExp('[\?&]'+name+'=([^&#]*)').exec(window.location.href);return res==null?null:(res[1]||0);}
 	if(window.location.pathname.indexOf("/pretraga")>-1){
-    window.fuse;
-    window.allPosts = [];
-    $.getJSON('/json-feed.json',function(response){
-        allPosts = response;
-		fuse = new Fuse(allPosts,{shouldSort:true,threshold:0.4,location:0,distance:100,maxPatternLength:32,minMatchCharLength:1,keys:["t","u","c"]});
-        
-    }).fail(console.error);
-    document.getElementById("search-button").onclick = function(){search();};
-
-    window.search=function search(query) {
-        document.getElementById("results").innerHTML = "";
-        var results = fuse.search(query || document.getElementById("search-field").value),resArr=[],i;
-        for (i = 0; i < 20 && i < results.length; i++) {
-			resArr.push('<h2><a href="'+results[i].u+'">'+results[i].t+'</a></h2>');
-        }
-		document.getElementById("results").innerHTML = resArr.join('');
-		document.getElementById("found").innerText = 'Pronađeno '+results.length+' rezultata - prikazano '+(i+1);
-    }
-    document.getElementById("search-field").addEventListener("keydown",function(event){if(event.key === "Enter"){event.preventDefault();search();}});
+		if(urlParam('q')){
+		$.getJSON('/json-feed.json',function(response){
+			fuse = new Fuse(response,{shouldSort:true,threshold:0.4,location:0,distance:100,maxPatternLength:32,minMatchCharLength:1,keys:["t","u","c"]});
+			var query = urlParam('q'), results = fuse.search(query), resArr=[], i;
+			for (i = 0; i < 20 && i < results.length; i++) {
+				resArr.push('<h2><a href="'+results[i].u+'">'+results[i].t+'</a></h2>');
+			}
+			document.getElementById("found").innerText = 'Za pojam "'+query+'" pronađeno je '+results.length+' rezultata - prikazano ' + i;
+			document.getElementById("results").innerHTML = resArr.join('');
+		}).fail(console.error);
+		} else {
+			document.getElementById("found").innerText = 'Niste unijeli pojam za pretragu.';
+		}
 }
 })(jQuery);
