@@ -11,7 +11,7 @@ hexo.extend.filter.register('before_exit', function(){
 	}
 	if(fs.existsSync(path.join(__dirname,'..','public','pretraga','index.html'))){
 		var html=fs.readFileSync(path.join(__dirname,'..','public','pretraga','index.html'));
-		html=html.replace(/<div class="article-meta".*?<\/time><\/a><\/div>/,'').replace(/<meta property="og:updated_time" content=".*?">/,'').replace(/<meta property="og:time" content=".*?">/,'');
+		html=html.replace(/<div class="article-meta".*?<\/time><\/a><\/div>/,'').replace(/<meta property="og:updated_time" content=".*?">/,'').replace(/<meta property="og:time" content=".*?">/,'').replace('class="article-footer"','class="article-footer" style="display:none;"');
 		fs.writeFileSync(path.join(__dirname,'..','public','pretraga','index.html'),html);
 	}
 });
