@@ -143,7 +143,7 @@
 			for (i = 0; i < 20 && i < results.length; i++) {
 				resArr.push('<h2><a href="'+results[i].u+'">'+results[i].t+'</a></h2>');
 			}
-			document.getElementById("found").innerText = 'Za traženi pojam "'+query+'" ' + results.length?('pronađen'+(results.length>1?'o':'')+' je '+results.length+' rezultat'+(results.length>1?'a':'')+' - prikazan'+(results.length>1?'o':'')+' ' + i):'nije pronađen nijedan rezultat';
+			document.getElementById("found").innerText = 'Za traženi pojam "'+query+'" ' + (results.length?('pronađen'+(results.length>1?'o':'')+' je '+results.length+' rezultat'+(results.length>1?'a':'')+' - prikazan'+(results.length>1?'o':'')+' ' + i):'nije pronađen nijedan rezultat');
 			document.getElementById("results").innerHTML = resArr.join('');
 		}).fail(console.error);
 		} else {
