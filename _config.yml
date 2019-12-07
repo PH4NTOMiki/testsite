@@ -97,4 +97,7 @@ theme: landscape
 deploy:
   type: ''
 
+feed:
+  limit: 0
+
 all_minifier: false
