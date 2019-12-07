@@ -139,7 +139,7 @@
 		if(urlParam('q')){
 		$.getJSON('/json-feed.json',function(response){
 			fuse = new Fuse(response,{shouldSort:true,threshold:0.4,location:0,distance:100,maxPatternLength:32,minMatchCharLength:1,keys:["t","u","c"]});
-			var query = urlParam('q').replace(/%20/g,' '), results = fuse.search(query), resArr=[], i;
+			var query = decodeURIComponent(urlParam('q')), results = fuse.search(query), resArr = [], i;
 			for (i = 0; i < 20 && i < results.length; i++) {
 				resArr.push('<h2><a href="'+results[i].u+'">'+results[i].t+'</a></h2>');
 			}
