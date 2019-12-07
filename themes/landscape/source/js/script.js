@@ -138,7 +138,7 @@
 	if(window.location.pathname.indexOf("/pretraga")>-1){
 		if(urlParam('q')){
 		$.getJSON('/json-feed.json',function(response){
-			window.fuse = new Fuse(response,{shouldSort:true,threshold:0.4,location:0,distance:100,maxPatternLength:32,minMatchCharLength:1,keys:["t","u","c"]});
+			fuse = new Fuse(response,{shouldSort:true,threshold:0.4,location:0,distance:100,maxPatternLength:32,minMatchCharLength:1,keys:["t","u","c"]});
 			var query = decodeURIComponent(urlParam('q')).replace(/\+/g,' '), results = fuse.search(query), resArr = [], i;
 			for (i = 0; i < 20 && i < results.length; i++) {
 				resArr.push('<h2><a href="'+results[i].u+'">'+results[i].t+'</a></h2>');
