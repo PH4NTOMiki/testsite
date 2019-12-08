@@ -102,5 +102,6 @@ feed:
 
 hide_posts:
   noindex: false
+  html_flag: '<!-- hidden -->'
 
 #filter_cleanup: false

@@ -35,10 +35,10 @@ function hexo_generator_json_feed(site) {
 			external_url: post.link,
 			title: post.title,
 			link: post.permalink,
-			summary: post.excerpt ? post.excerpt : '',
+			summary: post.excerpt ? post.excerpt.replace(/<!-- hidden -->/g,'') : '',
 			image: post.image,
 			banner_image: post.image,
-			content_html: post.content,
+			content_html: post.content.replace(/<!-- hidden -->/g,''),
 			date_published: post.date.toDate().toISOString(),
 			date_modified: post.updated.toDate().toISOString(),
 			author: post.author ? {

@@ -54,6 +54,6 @@ module.exports = function(locals, type, path) {
 
   return {
     path,
-    data: xml
+    data: xml.replace(/<!-- hidden -->/g,'').replace(/&lt;!-- hidden --&gt;/g,'')
   };
 };
