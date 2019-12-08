@@ -1,4 +1,4 @@
-hexo.extend.filter.register('before_exit', function(){
+/*hexo.extend.filter.register('before_exit', function(){
 	var fs = require('hexo-fs'), path = require('path');
 	var arr = [], url = hexo.config.url;
 	if(fs.existsSync(path.join(__dirname,'..','public','feed.json'))){
@@ -14,4 +14,4 @@ hexo.extend.filter.register('before_exit', function(){
 		html=html.replace(/<div class="article-meta".*?<\/time><\/a><\/div>/,'').replace(/<meta property="og:updated_time" content=".*?">/,'').replace(/<meta property="og:time" content=".*?">/,'').replace('class="article-footer"','class="article-footer" style="display:none;"');
 		fs.writeFileSync(path.join(__dirname,'..','public','pretraga','index.html'),html);
 	}
-});
+});*/

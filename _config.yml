@@ -100,4 +100,7 @@ deploy:
 feed:
   limit: 0
 
-all_minifier: false
+hide_posts:
+  noindex: false
+
+#filter_cleanup: false
