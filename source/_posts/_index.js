@@ -4,7 +4,7 @@ arr=[];
 
 var files = fs.readdirSync(__dirname);
 files.forEach(file=>{
-    if(file!='_index.js'&&file!='vijesti'&&file!='galerija' && (/*file.toLowerCase().indexOf('galerija')>-1 || */fs.readFileSync(path.join(__dirname, file), 'utf8').toLowerCase().indexOf('{gallery}')>-1)){
+    if(/.*\.md/.test(file) && (/*file.toLowerCase().indexOf('galerija')>-1 || */fs.readFileSync(path.join(__dirname, file), 'utf8').toLowerCase().indexOf('{gallery}')>-1)){
 		arr.push(file);
 	}
 });
