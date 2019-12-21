@@ -1,4 +1,31 @@
 ---
 label: Post
 hide_body: false
-fields: []
+fields:
+- name: title
+  type: text
+  config:
+    required: false
+  label: Title
+- name: date
+  type: datetime
+  label: Date
+  description: ''
+  config:
+    required: false
+    date_format: 
+    time_format: 
+    display_utc: false
+    export_format: YYYY-MM-DD hh:mm:ss
+- name: tags
+  type: tag_list
+  default: []
+  label: Tags
+- name: searchpage
+  type: boolean
+  default: false
+  label: Search page
+- name: sitemap
+  type: boolean
+  label: Sitemap
+  default: true
