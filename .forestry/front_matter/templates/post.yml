@@ -21,6 +21,10 @@ fields:
   type: tag_list
   default: []
   label: Tags
+- name: hidden
+  type: boolean
+  label: Hidden
+  default: false
 - name: searchpage
   type: boolean
   default: false
