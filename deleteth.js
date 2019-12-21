@@ -11,6 +11,6 @@ const walkSync = (dir, filelist = []) => {
 return filelist;
 }
 
-walkSync(path.join(__dirname,'source','images')).concat(walkSync(path.join(__dirname,'public','images'))).forEach(function(img){
+walkSync(path.join(__dirname,'source','images')).concat(fs.existsSync(path.join(__dirname,'public'))&&fs.existsSync(path.join(__dirname,'public','images'))?walkSync(path.join(__dirname,'public','images')):[]).forEach(function(img){
 	img.indexOf('-thumb')>-1&&fs.unlinkSync(img);
 });
