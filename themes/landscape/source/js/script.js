@@ -97,9 +97,19 @@
       $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
     });
 
-    $(this).find('.fancybox').each(function(){
+	$(this).find('.fancybox').each(function(){
       $(this).attr('rel', 'article' + i);
     });
+    if($(this).find('.loadimages').length){
+      var imgs = $.parseJSON($(this).find('.loadimages').attr('data-imgs')), galleryName = imgs[0], arr = [];
+	  imgs = imgs.slice(1);
+	  $.each(imgs,function(index,curr){
+		  var thumb=curr.split('.');thumb[thumb.length-2]+='-thumb';
+		  arr.push('<a class="fancybox" href="/images/'+galleryName+'/'+curr+'" rel="article'+i+'"><img class="gallth" width="200px" height="160px" src="/images/'+galleryName+'/'+thumb.join('.')+'"></a>');
+	  });
+      $(this).find('center').append(arr.join(''));
+	  $(this).find('.loadimages').remove();
+    }
   });
 
   if ($.fancybox){
