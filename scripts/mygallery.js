@@ -11,11 +11,7 @@ hexo.extend.tag.register('mygallery', function (args) {
 				return '<a class="fancybox" href="/images/'+galleryName+'/'+curr+'"><img class="gallth" width="200px" height="160px" src="/images/'+galleryName+'/'+thumb.join('.')+'"></a>';
 			}).join('')||'') + 
 			'</center>';
-		if(!max){
-			return showedImgs;
-		} else {
-			return showedImgs + '<div class="loadimages" style="display:none;" data-imgs=' + "'" + JSON.stringify([galleryName].concat(imgs.slice(max))) + "'" + '></div>';
-		}
+		return showedImgs + (max?'<div class="loadimages" style="display:none;" data-imgs="' + [galleryName].concat(imgs.slice(max)).join(',') + '"></div>':'');
 	}
 	
 	
