@@ -5,7 +5,7 @@
   <%- partial('google-analytics') %>
   <%
   var title = page.title;
-  var ogtag = open_graph({twitter_id: theme.twitter, google_plus: theme.google_plus, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id});
+  var ogtag = open_graph({twitter_id: theme.twitter, google_plus: theme.google_plus, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}).replace(/-thumb/gi,'');
   if(page.hidden){ogtag=ogtag.replace(/<meta property="og:.*?time" content=".*?">/gi,'');}
   if (is_archive()){
     title = __('archive_a');
