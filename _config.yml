@@ -104,4 +104,7 @@ hide_posts:
   noindex: false
   html_flag: '<!-- hidden -->'
 
+hfc_img:
+  enable: false
+
 #filter_cleanup: false
