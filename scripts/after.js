@@ -15,3 +15,19 @@
 		fs.writeFileSync(path.join(__dirname,'..','public','pretraga','index.html'),html);
 	}
 });*/
+if(hexo.config.cdn){
+	hexo.log.info(hexo.config.cdn);
+	const cdn = hexo.config.cdn;
+	hexo.extend.filter.register('after_post_render', data=>{
+		hexo.log.info('after_post_render');
+		data.content = data.content.replace(/(href|src|rel)=("|')\/(.*?\.(jpg|png|js|css|pdf|doc|docx|xls|xlsx))("|')/g, (...args)=>{return `${args[1]}=${args[2]}${cdn}/${args[3]}${args[5]}`;});
+		return data;
+	});
+	hexo.extend.filter.register('after_render:html', data=>{
+		return data.replace(/(href|src|rel)=("|')\/(.*?\.(jpg|png|js|css|pdf|doc|docx|xls|xlsx))("|')/g, (...args)=>{return `${args[1]}=${args[2]}${cdn}/${args[3]}${args[5]}`;});
+	});
+
+
+
+
+}
