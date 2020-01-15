@@ -111,6 +111,9 @@ hide_posts:
 hfc_img:
   enable: false
 
+hfc_js:
+  enable: false
+
 hfc_favicons:
   enable: false
 

@@ -12,7 +12,6 @@
     "version": "4.0.0"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.3",
     "hexo": "^4.0.0",
     "hexo-filter-cleanup": "^1.2.2",
     "hexo-generator-archive": "^1.0.0",
@@ -24,6 +23,7 @@
     "hexo-renderer-marked": "^2.0.0",
     "hexo-renderer-stylus": "^1.1.0",
     "hexo-server": "^1.0.0",
-    "image-thumbnail": "^1.0.4"
+    "image-thumbnail": "^1.0.4",
+    "request": "^2.88.0"
   }
 }
