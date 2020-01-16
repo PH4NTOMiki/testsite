@@ -35,10 +35,10 @@ function hexo_generator_json_feed(site) {
 			external_url: post.link,
 			title: post.title,
 			link: post.permalink,
-			summary: post.excerpt ? post.excerpt.replace(/<!-- hidden -->/g,'').replace(/<script.*?>.*?<\/script>/gi,'').replace(/(<center>|<\/center>)/gi,'').replace(/<div class="loadimages" style="display:none;" data-imgs=".*?"><\/div>/gi,'') : '',
+			summary: post.excerpt ? post.excerpt.replace(/<!-- hidden -->/g,'').replace(/<script.*?>.*?<\/script>/gi,'').replace(/(<center>|<\/center>)/gi,'').replace(/<div class="loadimages" style="display:none;" data-imgs=".*?"><\/div>/gi,'').replace(/-thumb/g,'') : '',
 			image: post.image,
 			banner_image: post.image,
-			content_html: post.content.replace(/<!-- hidden -->/g,'').replace(/<script.*?>.*?<\/script>/gi,'').replace(/(<center>|<\/center>)/gi,'').replace(/<div class="loadimages" style="display:none;" data-imgs=".*?"><\/div>/gi,''),
+			content_html: post.content.replace(/<!-- hidden -->/g,'').replace(/<script.*?>.*?<\/script>/gi,'').replace(/(<center>|<\/center>)/gi,'').replace(/<div class="loadimages" style="display:none;" data-imgs=".*?"><\/div>/gi,'').replace(/-thumb/g,''),
 			date_published: post.date.toDate().toISOString(),
 			date_modified: post.updated.toDate().toISOString(),
 			author: post.author ? {

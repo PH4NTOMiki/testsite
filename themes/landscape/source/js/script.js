@@ -148,7 +148,7 @@ var cdn="";(function($){
 	function urlParam(name){var res=new RegExp('[\?&]'+name+'=([^&#]*)').exec(window.location.href);return res==null?null:(res[1]||0);}
 	if(window.location.pathname.indexOf("/pretraga")>-1){
 		if(urlParam('q')){
-		$.getJSON('/json-feed.json',function(response){
+		$.getJSON(cdn+'/json-feed.json',function(response){
 			fuse = new Fuse(response,{shouldSort:true,threshold:0.4,location:0,distance:100,maxPatternLength:32,minMatchCharLength:1,keys:["t","u","c"]});
 			var query = decodeURIComponent(urlParam('q').replace(/\+/g,' ')), results = fuse.search(query), resArr = [], i;
 			for (i = 0; i < 20 && i < results.length; i++) {

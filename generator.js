@@ -54,6 +54,6 @@ module.exports = function(locals, type, path) {
 
   return {
     path,
-    data: xml.replace(/<!-- hidden -->/g,'').replace(/&lt;!-- hidden --&gt;/g,'').replace(/<script.*?>.*?<\/script>/gi,'').replace(/&lt;script&gt;.*?&lt;\/script&gt;/gi,'').replace(/(<center>|<\/center>)/gi,'').replace(/(&lt;center&gt;|&lt;\/center&gt;)/gi,'').replace(/<div class="loadimages" style="display:none;" data-imgs=".*?"><\/div>/gi,'').replace(/&lt;div class="loadimages" style="display:none;" data-imgs=".*?"&gt;&lt;\/div&gt;/gi,'')
+    data: xml.replace(/<!-- hidden -->/g,'').replace(/&lt;!-- hidden --&gt;/g,'').replace(/<script.*?>.*?<\/script>/gi,'').replace(/&lt;script&gt;.*?&lt;\/script&gt;/gi,'').replace(/(<center>|<\/center>)/gi,'').replace(/(&lt;center&gt;|&lt;\/center&gt;)/gi,'').replace(/<div class="loadimages" style="display:none;" data-imgs=".*?"><\/div>/gi,'').replace(/&lt;div class="loadimages" style="display:none;" data-imgs=".*?"&gt;&lt;\/div&gt;/gi,'').replace(/-thumb/g,'')
   };
 };
