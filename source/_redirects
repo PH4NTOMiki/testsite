@@ -2,8 +2,3 @@ https://os-vares.netlify.com/* https://os-vares.com.ba/:splat 301!
 http://os-vares.com.ba/* https://os-vares.com.ba/:splat 301!
 http://www.os-vares.com.ba/* https://os-vares.com.ba/:splat 301!
 https://www.os-vares.com.ba/* https://os-vares.com.ba/:splat 301!
-https://cdn.os-vares.com.ba/:a/ https://os-vares.com.ba/:a/ 301!
-https://cdn.os-vares.com.ba/:a/:b/ https://os-vares.com.ba/:a/:b/ 301!
-https://cdn.os-vares.com.ba/:a/:b.html https://os-vares.com.ba/:a/:b 301!
-https://cdn.os-vares.com.ba/:a.html https://os-vares.com.ba/ 301!
-https://cdn.os-vares.com.ba/:a/:b/:c.html https://os-vares.com.ba/:a/:b/ 301!
