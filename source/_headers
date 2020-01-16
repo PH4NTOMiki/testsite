@@ -1,2 +1,11 @@
+https://cdn.os-vares.com.ba/*/
+  Location: https://os-vares.com.ba/
+https://cdn.os-vares.com.ba/*.html
+  Location: https://os-vares.com.ba/
+https://cdn.os-vares.com.ba/*/*/
+  Location: https://os-vares.com.ba/
+https://cdn.os-vares.com.ba/*/*.html
+  Location: https://os-vares.com.ba/
+
 /css/fonts/*
   Access-Control-Allow-Origin: *
