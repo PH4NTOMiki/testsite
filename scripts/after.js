@@ -15,7 +15,7 @@
 		fs.writeFileSync(path.join(__dirname,'..','public','pretraga','index.html'),html);
 	}
 });*/
-if(hexo.config.cdn){
+if(hexo.config.cdn && !((hexo.env.args && hexo.env.args._) || []).includes('clean')){
 	const cdn = hexo.config.cdn, replaceFunc = str => str.replace(/(href|src|rel)=("|')\/(.*?\.(jpg|png|js|css|pdf|doc|docx|xls|xlsx))("|')/g, (...args)=>{return `${args[1]}=${args[2]}${cdn}/${args[3]}${args[5]}`;});
 	hexo.log.info('using CDN: ' + cdn);
 	hexo.extend.filter.register('after_post_render', data=>{
@@ -24,7 +24,7 @@ if(hexo.config.cdn){
 		return data;
 	});
 	hexo.extend.filter.register('after_render:html', data=>{
-		return replaceFunc(data);
+		return replaceFunc(data).replace('<link rel="alternate" href="/atom.xml"','<link rel="alternate" href="'+hexo.config.url+'/atom.xml"').replace(/&#x2F;index\.html/gi,'&#x2F;').replace(/&#x2F;/gi,'/')/*.replace(/\/atom\.xml/g,hexo.config.url+'/atom.xml');*/
 	});
 	hexo.extend.filter.register('before_exit', ()=>{
 		let jsPath = path.join(__dirname,'..','public','js','script.js');
