@@ -105,7 +105,7 @@ var cdn="";(function($){
 	  var imgs = $this.find('.loadimages').attr('data-imgs').split(','), galleryName = imgs[0], arr = [];
 	  $.each(imgs.slice(1),function(index,curr){
 		  var thumb=curr.split('.');thumb[thumb.length-2]+='-thumb';
-		  arr.push('<a class="fancybox" href="'+cdn+'/images/'+galleryName+'/'+curr+'" rel="article'+i+'"><img class="gallth" width="200px" height="160px" src="'+cdn+'/images/'+galleryName+'/'+thumb.join('.')+'"></a>');
+		  arr.push('<a class="fancybox" href="'+cdn+'/images/'+galleryName+'/'+curr+'" rel="article'+i+'"><img class="gallth" width="200px" height="160px" src="'+cdn+'/images/'+galleryName+'/'+thumb.join('.')+'" alt="'/*+curr.split('.').slice(0,-1).join('.')*/+'"></a>');
 	  });
       $this.find('center').append(arr.join(''));
 	  $this.find('.loadimages').remove();

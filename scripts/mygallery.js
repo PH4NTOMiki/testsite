@@ -9,7 +9,7 @@ hexo.extend.tag.register('mygallery', function (args) {
 		showedImgs = '<center>' + 
 			(imgs.slice(0,max).map(curr=>{
 				let thumb=curr.split('.');thumb[thumb.length-2]+='-thumb';
-				return '<a class="fancybox" href="'+source+'/images/'+galleryName+'/'+curr+'"><img class="gallth" width="200px" height="160px" src="'+source+'/images/'+galleryName+'/'+thumb.join('.')+'"></a>';
+				return '<a class="fancybox" href="'+source+'/images/'+galleryName+'/'+curr+'"><img class="gallth" width="200px" height="160px" src="'+source+'/images/'+galleryName+'/'+thumb.join('.')+'" alt="'/*+curr.split('.').slice(0,-1).join('.')*/+'"></a>';
 			}).join('')||'') + 
 			'</center>';
 		return showedImgs + (max?'<div class="loadimages" style="display:none;" data-imgs="' + [galleryName].concat(imgs.slice(max)).join(',') + '"></div>':'');

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= config.language %>">
 <head>
   <meta charset="utf-8">
   <%- partial('google-analytics') %>
   <%
   var title = page.title;
-  var ogtag = open_graph({twitter_id: theme.twitter, google_plus: theme.google_plus, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}).replace(/-thumb/gi,'');
-  if(page.hidden){ogtag=ogtag.replace(/<meta property="og:.*?time" content=".*?">/gi,'');}
+  var og = open_graph({twitter_id: theme.twitter, google_plus: theme.google_plus, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}).replace(/-thumb/gi,'');
+  if(page.hidden){og=og.replace(/<meta property="og:.*?time" content=".*?">/gi,'');}
+  if(!og.inludes('og:image')){og+='<meta property="og:image" content="/images/001.jpg"><meta property="og:image" content="/images/002.jpg"><meta property="og:image" content="/images/004.jpg"><meta property="twitter:image" content="/images/004.jpg">';}
   if (is_archive()){
     title = __('archive_a');
 
