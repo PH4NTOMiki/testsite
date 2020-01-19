@@ -16,7 +16,7 @@
 	}
 });*/
 if(hexo.config.cdn && !((hexo.env.args && hexo.env.args._) || []).includes('clean')){
-	const cdn = hexo.config.cdn, replaceFunc = str => str.replace(/(href|src|rel)=("|')\/(.*?\.(jpg|png|js|css|pdf|doc|docx|xls|xlsx))("|')/g, (...args)=>{return `${args[1]}=${args[2]}${cdn}/${args[3]}${args[5]}`;});
+	const cdn = hexo.config.cdn, replaceFunc = str => str.replace(/(href|src|rel)=("|')\/(.*?\.(jpg|jpeg|png|js|css|pdf|doc|docx|xls|xlsx))("|')/gi, (...args)=>{return `${args[1]}=${args[2]}${cdn}/${args[3]}${args[5]}`;});
 	hexo.log.info('using CDN: ' + cdn);
 	hexo.extend.filter.register('after_post_render', data=>{
 		// hexo.log.info('after_post_render');
@@ -24,7 +24,7 @@ if(hexo.config.cdn && !((hexo.env.args && hexo.env.args._) || []).includes('clea
 		return data;
 	});
 	hexo.extend.filter.register('after_render:html', data=>{
-		return replaceFunc(data).replace('<link rel="alternate" href="/atom.xml"','<link rel="alternate" href="'+hexo.config.url+'/atom.xml"').replace(/&#x2F;index\.html/gi,'&#x2F;').replace(/&#x2F;/gi,'/')/*.replace(/\/atom\.xml/g,hexo.config.url+'/atom.xml');*/
+		return replaceFunc(data).replace('<link rel="alternate" href="/atom.xml"','<link rel="alternate" href="'+hexo.config.url+'/atom.xml"').replace(/&#x2F;index\.html/gi,'&#x2F;').replace(/&#x2F;/gi,'/').replace(/<script/i,'</div><script').replace(/<\/div>(?!.*<\/div>)/i,'')/*.replace(/\/atom\.xml/g,hexo.config.url+'/atom.xml');*/
 	});
 	hexo.extend.filter.register('before_exit', ()=>{
 		let jsPath = path.join(__dirname,'..','public','js','script.js');
