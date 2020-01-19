@@ -7,4 +7,4 @@ date: 2019-05-29 07:57:39
 tags:
 ---
 
-<a href="/uploads/Pismo-poziva-tender.jpg"><img src="/uploads/Pismo-poziva-tender.jpg"></a>
+<a href="/uploads/Pismo-poziva-tender.jpg"><img src="/uploads/Pismo-poziva-tender.jpg" alt="Pismo poziva tender"></a>
