@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= config.language %>">
+<html lang="<%- config.language %>">
 <head>
   <meta charset="utf-8">
   <%- partial('google-analytics') %>
@@ -7,7 +7,9 @@
   var title = page.title;
   var og = open_graph({twitter_id: theme.twitter, google_plus: theme.google_plus, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}).replace(/-thumb/gi,'');
   if(page.hidden){og=og.replace(/<meta property="og:.*?time" content=".*?">/gi,'');}
-  if(!og.includes('og:image')){og+='<meta property="og:image" content="/images/001.jpg"><meta property="og:image" content="/images/002.jpg"><meta property="og:image" content="/images/004.jpg"><meta property="twitter:image" content="/images/004.jpg">';}
+  if(!og.includes('og:image')){var source=config.cdn||config.url;
+  og+='<meta property="og:image" content="'+source+'/images/001.jpg"><meta property="og:image" content="'+source+'/images/002.jpg"><meta property="og:image" content="'+source+'/images/004.jpg"><meta property="twitter:image" content="'+source+'/images/004.jpg">';
+  }
   if (is_archive()){
     title = __('archive_a');
 
@@ -24,7 +26,7 @@
   %>
   <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <%- ogtag %>
+  <%- og %>
   <% if (theme.rss){ %>
     <link rel="alternate" href="<%= url_for(theme.rss) %>" title="<%= config.title %>" type="application/atom+xml">
   <% } %>
