@@ -154,11 +154,13 @@ var cdn="";(function($){
 			for (i = 0; i < 20 && i < results.length; i++) {
 				resArr.push('<h2><a href="'+results[i].u+'">'+results[i].t+'</a></h2>');
 			}
-			document.getElementById("found").innerText = 'Za traženi pojam "'+query+'" ' + (results.length?('pronađen'+(results.length>1?'o':'')+' je '+results.length+' rezultat'+(results.length>1?'a':'')+' - prikazan'+(results.length>1?'o':'')+' ' + i):'nije pronađen nijedan rezultat');
-			document.getElementById("results").innerHTML = resArr.join('');
+			var plural = results.length > 1 ? 'o' : '';
+			$("#found").text('Za traženi pojam "'+query+'" ' + (results.length?('pronađen'+plural+' je '+results.length+' rezultat'+plural.replace('o','a')+' - prikazan'+plural+' ' + i):'nije pronađen nijedan rezultat'));
+			$("#results").html(resArr.join(''));
 		}).fail(console.error);
 		} else {
-			document.getElementById("found").innerText = 'Niste unijeli pojam za pretragu.';
+			$("#found").text('Niste unijeli pojam za pretragu.');
+			$("#results").html('');
 		}
 }
 })(jQuery);
