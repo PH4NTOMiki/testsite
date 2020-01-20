@@ -1,14 +1,14 @@
 # Header
 menu:
   Početna: /
-  Arhiva: /arhiva
-  Podaci: /podaci
-  Školski list: /skolski-list
-  Kontakt: /kontakt
-  Nastavni kadar: /nastavni-kadar
-  Tehničko osoblje: /tehnicko-osoblje
-  Galerija: /galerija
-  Javne nabavke: /javne-nabavke
+  Arhiva: /arhiva/
+  Podaci: /podaci/
+  Školski list: /skolski-list/
+  Kontakt: /kontakt/
+  Nastavni kadar: /nastavni-kadar/
+  Tehničko osoblje: /tehnicko-osoblje/
+  Galerija: /galerija/
+  Javne nabavke: /javne-nabavke/
 rss: /atom.xml
 
 # Content
