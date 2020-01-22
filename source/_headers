@@ -2,5 +2,5 @@
   Access-Control-Allow-Origin: *
 /*.json
   Access-Control-Allow-Origin: *
-
-Link: <https://cdn.os-vares.com.ba/>; rel=dns-prefetch
+/*
+  Link: <https://cdn.os-vares.com.ba/>; rel=dns-prefetch
