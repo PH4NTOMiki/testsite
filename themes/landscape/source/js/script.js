@@ -100,15 +100,16 @@ var cdn="";(function($){
 	$(this).find('.fancybox').each(function(){
       $(this).attr('rel', 'article' + i);
     });
-    if($(this).find('.loadimages').length){var $this = $(this);
+	var $center = $(this).find('center');
+    if($center.attr('data-imgs')){var $this = $(this);
       $(window).on('load',function(){
-	  var imgs = $this.find('.loadimages').attr('data-imgs').split(','), galleryName = imgs[0], arr = [];
+	  var imgs = $center.attr('data-imgs').split(','), galleryName = imgs[0], arr = [];
 	  $.each(imgs.slice(1),function(index,curr){
 		  var thumb=curr.split('.');thumb[thumb.length-2]+='-thumb';
 		  arr.push('<a class="fancybox" href="'+cdn+'/images/'+galleryName+'/'+curr+'" rel="article'+i+'"><img class="gallth" width="200px" height="160px" src="'+cdn+'/images/'+galleryName+'/'+thumb.join('.')+'" alt="'/*+curr.split('.').slice(0,-1).join('.')*/+'"></a>');
 	  });
-      $this.find('center').append(arr.join(''));
-	  $this.find('.loadimages').remove();
+      $center.append(arr.join(''));
+	  $center.removeAttr('data-imgs');
 	  });
     }
   });
