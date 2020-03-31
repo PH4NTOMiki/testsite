@@ -42,11 +42,11 @@ hexo.extend.filter.register('before_exit', ()=>{
 		// console.log(jsfile.slice(0,20));
 		jsfile = jsfile.replace('cdn=""', 'cdn="'+cdn+'"').replace('cdn="undefined"', 'cdn="'+cdn+'"');
 		// console.log(jsfile.slice(0,20));
-		if(hexo.config.fusecombined){
+		if(hexo.config.localresources && hexo.config.fusecombined){
 			// console.log(hexo.config.fusecombined)
 			let fusefile = fs.readFileSync(path.join(__dirname,'..','public','js','fuse.min.js')).toString();
 			// console.log(fusefile.slice(0,20));
-			jsfile = fusefile + jsfile;
+			jsfile = fusefile + '\n' + jsfile;
 		}
 		fs.writeFileSync(jsPath, jsfile);
 	}
