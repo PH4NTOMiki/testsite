@@ -15,7 +15,7 @@
 		fs.writeFileSync(path.join(__dirname,'..','public','pretraga','index.html'),html);
 	}
 });*/
-const cdn = hexo.config.cdn, replaceFunc = str => str.replace(/(href|src|rel)=("|')\/(.*?\.(jpg|jpeg|png|js|css|pdf|doc|docx|xls|xlsx))("|')/gi, (...args)=>{return `${args[1]}=${args[2]}${cdn}/${args[3]}${args[5]}`;});
+const cdn = hexo.config.cdn || '', replaceFunc = str => str.replace(/(href|src|rel)=("|')\/(.*?\.(jpg|jpeg|png|js|css|pdf|doc|docx|xls|xlsx))("|')/gi, (...args)=>{return `${args[1]}=${args[2]}${cdn}/${args[3]}${args[5]}`;});
 
 if(cdn && !((hexo.env.args && hexo.env.args._) || []).includes('clean')){
 	hexo.log.info('using CDN: ' + cdn);
@@ -38,10 +38,16 @@ hexo.extend.filter.register('before_exit', ()=>{
 	let jsPath = path.join(__dirname,'..','public','js','script.js');
 	if(fs.existsSync(jsPath)){
 		let jsfile = fs.readFileSync(jsPath).toString();
-		if(cdn){jsfile = jsfile.replace('cdn=""', 'cdn="'+cdn+'"');}
+		// console.log('cdn: '+cdn)
+		// console.log(jsfile.slice(0,20));
+		jsfile = jsfile.replace('cdn=""', 'cdn="'+cdn+'"').replace('cdn="undefined"', 'cdn="'+cdn+'"');
+		// console.log(jsfile.slice(0,20));
 		if(hexo.config.fusecombined){
-			jsfile = fs.readFileSync(path.join(__dirname,'..','public','js','fuse.min.js')).toString() + jsfile;
+			// console.log(hexo.config.fusecombined)
+			let fusefile = fs.readFileSync(path.join(__dirname,'..','public','js','fuse.min.js')).toString();
+			// console.log(fusefile.slice(0,20));
+			jsfile = fusefile + jsfile;
 		}
-		fs.writeFileSync(jsPath, fs.readFileSync(jsPath).replace('cdn=""', 'cdn="'+cdn+'"'));
+		fs.writeFileSync(jsPath, jsfile);
 	}
 });
