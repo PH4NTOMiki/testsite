@@ -97,8 +97,8 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: landscape
 
-#localresources: true
-#fusecombined: true
+localresources: true
+fusecombined: true
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
