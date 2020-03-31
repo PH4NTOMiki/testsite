@@ -1,7 +1,7 @@
 hexo.extend.filter.register('after_render:js', (js, data)=>{
-	if(data.path.endsWith('.min.js'))return js;
-	const /* request = require('request'),  */ log = hexo.log || console, 
-	minified = require('minify').js(js);
+	const /* request = require('request'),  */ log = hexo.log || console;
+	if(data.path.toLowerCase().endsWith('.min.js')){log.log('jsminify(JS): skiping minified file: '+data.path);return js;}
+	const minified = require('minify').js(js);
 	log.log('jsminify(JS): '+data.path+' [ '+ ((js.length - minified.length) / js.length * 100).toFixed(2) +'% saved]');
 	return minified;
 	// if(!data.path.includes('script.js')){log.warn('jsminify(JS): '+data.path+' Skip minifying.');return js;}
