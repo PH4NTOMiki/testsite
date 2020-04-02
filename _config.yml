@@ -99,6 +99,7 @@ theme: landscape
 
 localresources: true
 fusecombined: true
+fancyboxcsscombined: true
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:

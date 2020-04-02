@@ -35,19 +35,24 @@ hexo.extend.filter.register('after_render:html', data=>{
 });
 
 hexo.extend.filter.register('before_exit', ()=>{
-	let jsPath = path.join(__dirname,'..','public','js','script.js');
+	let jsPath = path.join(__dirname,'..','public','js','script.js'), cssPath = path.join(__dirname,'..','public','css','style.css');
+	if(hexo.config.fancyboxcsscombined && fs.existsSync(cssPath)){
+		let cssFile = fs.readFileSync(cssPath).toString().split('\n')[0];
+		cssFile += '\n' + fs.readFileSync(path.join(__dirname,'..','public','fancybox','jquery.fancybox.css')).toString();
+		fs.writeFileSync(cssPath, cssFile);
+	}
 	if(fs.existsSync(jsPath)){
-		let jsfile = fs.readFileSync(jsPath).toString();
+		let jsFile = fs.readFileSync(jsPath).toString().split('\n').pop();
 		// console.log('cdn: '+cdn)
-		// console.log(jsfile.slice(0,20));
-		jsfile = jsfile.replace('cdn=""', 'cdn="'+cdn+'"').replace('cdn="undefined"', 'cdn="'+cdn+'"');
-		// console.log(jsfile.slice(0,20));
+		// console.log(jsFile.slice(0,20));
+		jsFile = jsFile.replace('cdn=""', 'cdn="'+cdn+'"').replace('cdn="undefined"', 'cdn="'+cdn+'"');
+		// console.log(jsFile.slice(0,20));
 		if(hexo.config.localresources && hexo.config.fusecombined){
 			// console.log(hexo.config.fusecombined)
 			let fusefile = fs.readFileSync(path.join(__dirname,'..','public','js','fuse.min.js')).toString();
 			// console.log(fusefile.slice(0,20));
-			jsfile = fusefile + '\n' + jsfile;
+			jsFile = fusefile + '\n' + jsFile;
 		}
-		fs.writeFileSync(jsPath, jsfile);
+		fs.writeFileSync(jsPath, jsFile);
 	}
 });
