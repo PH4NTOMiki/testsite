@@ -14,13 +14,13 @@
 <% } %>
 <% if (!config.localresources){ %>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-	<% if (theme.fancybox){ %>
+	<% if (theme.fancybox && !config.fancyboxjscombined){ %>
   <%- js('fancybox/jquery.fancybox.pack') %>
 <% } %>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.5/fuse.min.js"></script>
 <% } else { %>
 	<%- js('js/jquery.2.0.3.min.js') %>
-	<% if (theme.fancybox){ %>
+	<% if (theme.fancybox && !config.fancyboxjscombined){ %>
   <%- js('fancybox/jquery.fancybox.pack') %>
 <% } %>
 	<% if (!config.fusecombined){ %> <%- js('js/fuse.min.js') %> <% } %>

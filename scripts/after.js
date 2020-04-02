@@ -31,11 +31,21 @@ if(cdn && !((hexo.env.args && hexo.env.args._) || []).includes('clean')){
 }
 
 hexo.extend.filter.register('after_render:html', data=>{
-	return (!cdn?data:replaceFunc(data)).replace('<link rel="alternate" href="/atom.xml"','<link rel="alternate" href="'+hexo.config.url+'/atom.xml"').replace(/&#x2F;index\.html/gi,'&#x2F;').replace(/&#x2F;/gi,'/').replace(/(<a class=".*?(category-list-link|article-category-link).*?" href=".*?">)(.*?)(<\/a>)/g,(...args)=>{return args[1]+args[3][0].toUpperCase()+args[3].slice(1)+args[4];}).replace(/<meta property="og:url" content=".*?\/404\.html">/i,'')/*.replace(/imgalt/gi,'').replace(/<script/i,'</div><script').replace(/<\/div>(?!.*<\/div>)/i,'').replace(/\/atom\.xml/g,hexo.config.url+'/atom.xml');*/
+	return (!cdn?data:replaceFunc(data)).replace('<link rel="alternate" href="/atom.xml"','<link rel="alternate" href="'+hexo.config.url+'/atom.xml"').replace(/&#x2F;index\.html/gi,'&#x2F;').replace(/&#x2F;/gi,'/').replace(/(<a class=".*?(category-list-link|article-category-link).*?" href=".*?">)(.*?)(<\/a>)/g,(...args)=>{return args[1]+args[3][0].toUpperCase()+args[3].slice(1)+args[4];}).replace(/<meta property="og:url" content=".*?\/404\.html">/i,'').replace(/<script defer/gi,'<script').replace(/<script(.*? src=.*?>)/gi, (m,n)=>{return hexo.config.scriptdefer?'<script defer'+n:m})/*.replace(/imgalt/gi,'').replace(/<script/i,'</div><script').replace(/<\/div>(?!.*<\/div>)/i,'').replace(/\/atom\.xml/g,hexo.config.url+'/atom.xml');*/
 });
 
 hexo.extend.filter.register('before_exit', ()=>{
-	let jsPath = path.join(__dirname,'..','public','js','script.js'), cssPath = path.join(__dirname,'..','public','css','style.css');
+	let jsPath = path.join(__dirname,'..','public','js','script.js'),
+	cssPath = path.join(__dirname,'..','public','css','style.css'),
+	jqPath = path.join(__dirname,'..','public','js','jquery.2.0.3.min.js');
+	if(hexo.config.fancyboxjscombined && fs.existsSync(jqPath)){
+		let jqFile = fs.readFileSync(jqPath).toString();
+		// console.log(jqFile.length);
+		jqFile=jqFile.split('\n').slice(0,6).join('\n');
+		// console.log(jqFile.length);
+		jqFile += '\n' + fs.readFileSync(path.join(__dirname,'..','public','fancybox','jquery.fancybox.pack.js')).toString();
+		fs.writeFileSync(jqPath, jqFile);
+	}
 	if(hexo.config.fancyboxcsscombined && fs.existsSync(cssPath)){
 		let cssFile = fs.readFileSync(cssPath).toString().split('\n')[0];
 		cssFile += '\n' + fs.readFileSync(path.join(__dirname,'..','public','fancybox','jquery.fancybox.css')).toString();
