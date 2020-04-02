@@ -31,7 +31,7 @@ if(cdn && !((hexo.env.args && hexo.env.args._) || []).includes('clean')){
 }
 
 hexo.extend.filter.register('after_render:html', data=>{
-	return (!cdn?data:replaceFunc(data)).replace('<link rel="alternate" href="/atom.xml"','<link rel="alternate" href="'+hexo.config.url+'/atom.xml"').replace(/&#x2F;index\.html/gi,'&#x2F;').replace(/&#x2F;/gi,'/').replace(/(<a class=".*?(category-list-link|article-category-link).*?" href=".*?">)(.*?)(<\/a>)/g,(...args)=>{return args[1]+args[3][0].toUpperCase()+args[3].slice(1)+args[4];})/*.replace(/imgalt/gi,'').replace(/<script/i,'</div><script').replace(/<\/div>(?!.*<\/div>)/i,'').replace(/\/atom\.xml/g,hexo.config.url+'/atom.xml');*/
+	return (!cdn?data:replaceFunc(data)).replace('<link rel="alternate" href="/atom.xml"','<link rel="alternate" href="'+hexo.config.url+'/atom.xml"').replace(/&#x2F;index\.html/gi,'&#x2F;').replace(/&#x2F;/gi,'/').replace(/(<a class=".*?(category-list-link|article-category-link).*?" href=".*?">)(.*?)(<\/a>)/g,(...args)=>{return args[1]+args[3][0].toUpperCase()+args[3].slice(1)+args[4];}).replace(/<meta property="og:url" content=".*?\/404\.html">/i,'')/*.replace(/imgalt/gi,'').replace(/<script/i,'</div><script').replace(/<\/div>(?!.*<\/div>)/i,'').replace(/\/atom\.xml/g,hexo.config.url+'/atom.xml');*/
 });
 
 hexo.extend.filter.register('before_exit', ()=>{
