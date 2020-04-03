@@ -102,6 +102,16 @@ fusecombined: true
 fancyboxcsscombined: true
 fancyboxjscombined: true
 scriptdefer: true
+
+robotstxt:
+  useragent: "*"
+  disallow:
+    - /js/
+    - /css/
+    - /fonts/
+    - /vendors/
+    - /fancybox/
+  sitemap: /sitemap.xml
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
