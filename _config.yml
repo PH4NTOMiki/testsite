@@ -102,6 +102,7 @@ fusecombined: true
 fancyboxcsscombined: true
 fancyboxjscombined: true
 scriptdefer: true
+olderiesupport: true
 
 robotstxt:
   useragent: "*"
