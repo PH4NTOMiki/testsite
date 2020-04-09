@@ -15,7 +15,7 @@
 		fs.writeFileSync(path.join(__dirname,'..','public','pretraga','index.html'),html);
 	}
 });*/
-const cdn = hexo.config.cdn || '', replaceFunc = str => str.replace(/(href|src|rel)=("|')\/(.*?\.(jpg|jpeg|png|js|css|pdf|doc|docx|xls|xlsx))("|')/gi, (...args)=>{return `${args[1]}=${args[2]}${cdn}/${args[3]}${args[5]}`;});
+const cdn = hexo.config.cdn || '';
 
 if(cdn && !((hexo.env.args && hexo.env.args._) || []).includes('clean')){
 	hexo.log.info('using CDN: ' + cdn);
@@ -30,8 +30,22 @@ if(cdn && !((hexo.env.args && hexo.env.args._) || []).includes('clean')){
 	});  handled in different function bellow this */
 }
 
-hexo.extend.filter.register('after_render:html', data=>{
-	return (!cdn?data:replaceFunc(data)).replace('<link rel="alternate" href="/atom.xml"','<link rel="alternate" href="'+hexo.config.url+'/atom.xml"').replace(/(\/|&#x2F;)--index\.html/gi,'&#x2F;').replace(/(<meta .*?property="og:url".*? content=".*?)index\.html/gi,'$1').replace(/&#x2F;/gi,'/').replace(/<meta .*?name="generator".*? content=".*?".*?>/gi,'').replace(/(<a class=".*?(category-list-link|article-category-link).*?" href=".*?">)(.*?)(<\/a>)/g,(...args)=>{return args[1]+args[3][0].toUpperCase()+args[3].slice(1)+args[4];}).replace(/<meta property="og:url" content=".*?\/404\.html">/i,'').replace(/<script defer/gi,'<script').replace(/<script(.*? src=(.*?)>)/gi, (m,n,c)=>{return hexo.config.scriptdefer && !c.toLowerCase().includes('html5shiv')?'<script defer'+n:m})/*.replace(/imgalt/gi,'').replace(/<script/i,'</div><script').replace(/<\/div>(?!.*<\/div>)/i,'').replace(/\/atom\.xml/g,hexo.config.url+'/atom.xml');*/
+hexo.extend.filter.register('after_render:html', html=>{
+	if(cdn)html=html.replace(/(href|src|rel)=("|')\/(.*?\.(jpg|jpeg|png|js|css|pdf|doc|docx|xls|xlsx))("|')/gi, '$1=$2'+cdn+'/$3$5');
+	if(hexo.config.removestartslash)html=html.replace(/(href|src|rel)=("|')\/(.*?)("|')/gi, '$1=$2$3$4');
+	html=html.replace('<link rel="alternate" href="/atom.xml"','<link rel="alternate" href="'+hexo.config.url+'/atom.xml"');
+	html=html.replace(/(\/|&#x2F;)--index\.html/gi,'&#x2F;');
+	html=html.replace(/(<meta .*?property="og:url".*? content=".*?)index\.html/gi,'$1');
+	html=html.replace(/&#x2F;/gi,'/').replace(/<meta .*?name="generator".*? content=".*?".*?>/gi,'');
+	html=html.replace(/(<a class=".*?(category-list-link|article-category-link).*?" href=".*?">)(.*?)(<\/a>)/g, (...args)=>{return args[1]+args[3][0].toUpperCase()+args[3].slice(1)+args[4];});
+	html=html.replace(/<meta property="og:url" content=".*?\/404\.html">/i,'');
+	html=html.replace(/<script defer/gi,'<script');
+	html=html.replace(/<script(.*? src=(.*?)>)/gi, (...args)=>{return hexo.config.scriptdefer && !args[2].toLowerCase().includes('html5shiv')?'<script defer'+args[1]:args[0]});
+	// html=html.replace(/imgalt/gi,'');
+	// html=html.replace(/<script/i,'</div><script');
+	// html=html.replace(/<\/div>(?!.*<\/div>)/i,'');
+	// html=html.replace(/\/atom\.xml/g,hexo.config.url+'/atom.xml');
+	return html;
 });
 
 hexo.extend.filter.register('before_exit', ()=>{
