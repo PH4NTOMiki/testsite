@@ -110,7 +110,6 @@
 	  });
       $center.append(arr.join(''));
 	  $center.removeAttr('data-imgs');
-	  /*{counter}*/
 	  });
     }
   });
