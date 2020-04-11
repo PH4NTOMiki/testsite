@@ -1,4 +1,4 @@
-var cdn="";(function($){
+(function($){
   // Search
   var $searchWrap = $('#search-form-wrap'),
     isSearchAnim = false,
@@ -106,11 +106,11 @@ var cdn="";(function($){
 	  var imgs = $center.attr('data-imgs').split(','), galleryName = imgs[0], arr = [];
 	  $.each(imgs.slice(1),function(index,curr){
 		  var thumb=curr.split('.');thumb[thumb.length-2]+='-thumb';
-		  arr.push('<a class="fancybox" href="'+cdn+'/images/'+galleryName+'/'+curr+'" rel="article'+i+'"><img class="gallth" width="200px" height="160px" src="'+cdn+'/images/'+galleryName+'/'+thumb.join('.')+'" alt="'/*+curr.split('.').slice(0,-1).join('.')*/+'"></a>');
+		  arr.push('<a class="fancybox" href="<%-c.cdn%><%-c.startslash%>images/'+galleryName+'/'+curr+'" rel="article'+i+'"><img class="gallth" width="200px" height="160px" src="<%-c.cdn%><%-c.startslash%>images/'+galleryName+'/'+thumb.join('.')+'" alt="'/*+curr.split('.').slice(0,-1).join('.')*/+'"></a>');
 	  });
       $center.append(arr.join(''));
 	  $center.removeAttr('data-imgs');
-	  setTimeout(function(){(new Image()).src=atob("aHR0cHM6Ly9vc3ZhcmVzLmdvYXRjb3VudGVyLmNvbS9jb3VudD8=")+"p="+encodeURIComponent(location.pathname+location.search||"/")+"&r="+encodeURIComponent(document.referrer)+"&s="+encodeURIComponent(window.screen.width+","+window.screen.height+","+(window.devicePixelRatio||1))},2000);
+	  /*{counter}*/
 	  });
     }
   });
@@ -147,10 +147,13 @@ var cdn="";(function($){
 
     $container.removeClass('mobile-nav-on');
   });
+  <% if (c.counter){ %>
+    $(window).on('load',function(){setTimeout(function(){(new Image()).src=unescape("%68%74%74%70%73%3A%2F%2F<%-c.counter%>%2E%67%6F%61%74%63%6F%75%6E%74%65%72%2E%63%6F%6D%2F%63%6F%75%6E%74%3F")+"p="+encodeURIComponent(location.pathname+location.search||"/")+"&r="+encodeURIComponent(document.referrer)+"&s="+encodeURIComponent(window.screen.width+","+window.screen.height+","+(window.devicePixelRatio||1))},2000);});
+  <% } %>
 	function urlParam(name){var res=new RegExp('[\?&]'+name+'=([^&#]*)').exec(window.location.href);return res==null?null:(res[1]||0);}
 	if(window.location.pathname.toLowerCase().indexOf("/pretraga")>-1){
 		if(urlParam('q')){
-		$.getJSON(cdn+'/json-feed.json',function(response){
+		$.getJSON('<%-c.cdn%>/json-feed.json',function(response){
 			fuse = new Fuse(response,{shouldSort:true,threshold:0.4,location:0,distance:100,maxPatternLength:32,minMatchCharLength:1,keys:["t","u","c"]});
 			var query = decodeURIComponent(urlParam('q').replace(/\+/g,' ')), results = fuse.search(query), resArr = [], i;
 			for (i = 0; i < 20 && i < results.length; i++) {

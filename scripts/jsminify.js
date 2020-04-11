@@ -1,4 +1,4 @@
-hexo.extend.filter.register('after_render:js', (js, data)=>{
+module.exports=(hexo, js, data={path:""})=>{
 	const /* request = require('request'),  */ log = hexo.log || console;
 	if(data.path.toLowerCase().endsWith('.min.js')){log.log('jsminify(JS): skipping minified file: '+data.path);return js;}
 	const minified = require('minify').js(js);
@@ -16,4 +16,4 @@ hexo.extend.filter.register('after_render:js', (js, data)=>{
 			resolve(body);
 		});
     }); */
-});
+};
