@@ -13,7 +13,8 @@ tags:
 
 <script defer src="/js/simplelightbox.js"></script>
 <script>
-var e=document.createElement('link');e.rel='prefetch';e.href="https://www.yumpu.com/xx/embed/view/tTjY8L3G2bUXPMnx";document.head.appendChild(e);
+var e=document.createElement('link');e.rel='preconnect';e.href="https://www.yumpu.com";document.head.appendChild(e);
+var j=document.createElement('link');j.rel='dns-prefetch';j.href="https://www.yumpu.com";document.head.appendChild(j);
 function openDoc(ev){
 	ev.preventDefault();
 	SimpleLightbox.open({content:'<iframe style="width: 90vw; height: 90vh;" src="https://www.yumpu.com/xx/embed/view/tTjY8L3G2bUXPMnx" frameborder="0" allowfullscreen="true"  allowtransparency="true"></iframe>',elementClass:'slbContentEl'});
