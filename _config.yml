@@ -104,7 +104,8 @@ fancyboxjscombined: true
 scriptdefer: true
 olderiesupport: true
 #enablerelativepaths: true
-useprefetch: true
+#useprefetch: true
+ajaxloader: true
 #prefetchstyle: true
 counter: osvares
 
