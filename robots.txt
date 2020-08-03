@@ -4,4 +4,4 @@ Disallow: /css/
 Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
-Sitemap: /sitemap.xml
+Sitemap: https://os-vares.com.ba/sitemap.xml
