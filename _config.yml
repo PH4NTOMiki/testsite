@@ -118,7 +118,7 @@ robotstxt:
     - /fonts/
     - /vendors/
     - /fancybox/
-  sitemap: /sitemap.xml
+  sitemap: https://os-vares.com.ba/sitemap.xml
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
