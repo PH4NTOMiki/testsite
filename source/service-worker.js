@@ -48,6 +48,7 @@ self.addEventListener('install', function (event) {
 	event.waitUntil(caches.open(coreID).then(function (cache) {
 		cache.add(new Request('/offline/'));
 		cache.add(new Request('/favicon.ico'));
+		// cache.add(new Request('/css/images/banner.jpg'));
 		/* fontFiles.forEach(function (file) {
 			cache.add(new Request(file));
 		}); */
@@ -83,7 +84,7 @@ self.addEventListener('fetch', function (event) {
 
 	// HTML files
 	// Network-first
-	if (request.headers.get('Accept').includes('text/html') || request.url.endsWith('/')) {
+	if (request.headers.get('Accept').includes('text/html') || request.url.endsWith('/') || request.url.toLowerCase().endsWith('.js') || request.url.toLowerCase().endsWith('.css')) {
 		event.respondWith(
 			fetch(request).then(function (response) {
 				if (response.type !== 'opaque') {
