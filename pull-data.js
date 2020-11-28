@@ -1,7 +1,10 @@
-const Hexo = require('hexo');
-const hexo = new Hexo(process.cwd(), {});
-const numberOfPostsInIteration = Math.min(parseInt(process.env.NUMBER_OF_POSTS_IN_ITERATION || 100), 100);
+// const Hexo = require('hexo');
+// const hexo = new Hexo(process.cwd(), {});
+const frontmatter = require('@github-docs/frontmatter');
+const fs = require('fs');
+const mkdirp = require('mkdirp');
 const { execSync } = require('child_process');
+const numberOfPostsInIteration = Math.min(parseInt(process.env.NUMBER_OF_POSTS_IN_ITERATION || 100), 100);
 const filterObjKeys = (obj, keyStart = '_', leaveKey = false) => Object.keys(obj).filter(key=>key.startsWith(keyStart)==leaveKey).reduce((a,b)=>(a[b]=obj[b],a),{});
 const trimObjStrings = (obj) => Object.keys(obj).reduce((a,b)=>(a[b]=typeof(obj[b])==='string'||obj[b] instanceof String?obj[b].trim():obj[b],a),{});
 const execCmd = (skip = 0) => JSON.parse(execSync(`node "./node_modules/gqall/index" ${process.env.GRAPHQL_API_URL} "${process.env.GRAPHQL_POSTS_ID || 'allPosts'}(first:${numberOfPostsInIteration}, skip:${skip})" -H "Authorization:${process.env.GRAPHQL_API_KEY}"`).toString().trim())[process.env.GRAPHQL_POSTS_ID || 'allPosts'];
@@ -20,7 +23,7 @@ const execCmd = (skip = 0) => JSON.parse(execSync(`node "./node_modules/gqall/in
 //	}
 //})();
 
-hexo.init().then(function(){
+// hexo.init().then(function(){
 	let posts = execCmd();
 	if(posts.length >= numberOfPostsInIteration){
 		let i = numberOfPostsInIteration;
@@ -45,6 +48,21 @@ hexo.init().then(function(){
 		post.categories = post.categories ? (post.categories.split(/\s*,\s*/).length > 1 ? post.categories.split(/\s*,\s*/) : (post.categories || '')) : '';
 		post.tags = post.tags ? (post.tags.split(/\s*,\s*/).length > 1 ? post.tags.split(/\s*,\s*/) : (post.tags || '')) : '';
 		// console.log('post: ', post);
-		hexo.post.create(post, true);
+		
+		let { content, path, slug } = post;
+		delete post.content;
+		delete post.path;
+		delete post.slug;
+		
+		let filePath = './source/_posts/' + slug + '.md';
+		mkdirp.sync(filePath.split('/').slice(0, -1).join('/'));
+		
+		let markdownString = frontmatter.stringify(content, post);
+		console.log('md: ', filePath, markdownString);
+		fs.writeFileSync(filePath, markdownString);
+		//fs.existsSync('./source')||fs.mkdirSync('./source');
+		//fs.existsSync('./source/_posts')||fs.mkdirSync('./source/_posts');
+		//fs.writeFileSync('./source/_posts/')
+		// hexo.post.create(post, true);
 	});
-});
+// });
