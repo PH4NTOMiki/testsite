@@ -21,6 +21,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
+      env:
+        GRAPHQL_API_URL: ${{ secrets.GRAPHQL_API_URL }}
+        GRAPHQL_API_KEY: ${{ secrets.GRAPHQL_API_KEY }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
