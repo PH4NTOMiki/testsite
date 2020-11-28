@@ -29,7 +29,7 @@
     "hexo-renderer-stylus": "^1.1.0",
     "hexo-server": "^1.0.0",
     "image-thumbnail": "^1.0.4",
-    "minify": "^5.0.0",
+    "minify": "5.0.0",
     "mkdirp": "^1.0.4",
     "request": "^2.88.0"
   }
