@@ -7,11 +7,17 @@
 title: 'Osnovna Škola "Vareš" Vareš'
 subtitle: ''
 description: 'Osnovna škola "Vareš" u Varešu je obrazovna ustanova. Nalazi se u Varešu, Zeničko-Dobojski kanton, Bosna i Hercegovina.'
-keywords:
+keywords: 'osnovna, škola, Vareš, ZDK, Zeničko-Dobojski kanton, obrazovna, obrazovanje, edukacija, školstvo, Bosna i Hercegovina'
 author: 'O.Š. Vareš'
 language: bs
-timezone: ''
+timezone: 'Europe/Sarajevo'
 
+manifest:
+  short_name: 'O.Š. Vareš'
+  icons:
+    - favicon-128.png
+    - favicon-192.png
+    - favicon-512.png
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'

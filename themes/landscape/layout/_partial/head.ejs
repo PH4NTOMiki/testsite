@@ -37,6 +37,9 @@
   <% if (theme.favicon){ %>
     <link rel="icon" href="<%- url_for(theme.favicon) %>">
   <% } %>
+  <% if (config.manifest && Array.isArray(config.manifest.icons) && mConfig.icons.length => 2){ %>
+    <link rel="manifest" href="<%- url_for('/manifest.json') %>">
+  <% } %>
   <% if (config.font_source_code_pro){ %>
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   <% } %>
