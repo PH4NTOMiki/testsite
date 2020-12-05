@@ -13,6 +13,7 @@ language: bs
 timezone: 'Europe/Sarajevo'
 
 manifest:
+  name: 'Osnovna Škola Vareš'
   short_name: 'O.Š. Vareš'
   icons:
     - favicon-128.png
