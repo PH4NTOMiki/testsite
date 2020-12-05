@@ -1,10 +1,11 @@
 const imageSize = require('image-size'), imageWidth = e => imageSize(e).width;
+var config = hexo.config, mConfig = config.hasOwnProperty('manifest') ? config.manifest : {};
 
+config.manifestEnabled = Array.isArray(config.manifest.icons) && mConfig.icons.length >= 2;
 hexo.extend.generator.register('manifest', manifestGenerator);
 
 function manifestGenerator(site) {
-	var config = hexo.config, mConfig = config.hasOwnProperty('manifest') ? config.manifest : {};
-	if(!Array.isArray(mConfig.icons) || mConfig.icons.length < 2)return;
+	if(!config.manifestEnabled)return;
 	var manifest = {
 		name: mConfig.name || (config.title || 'Website'),
 		short_name: mConfig.short_name || '',
