@@ -14,8 +14,8 @@ function manifestGenerator(site) {
 		display: mConfig.display || 'standalone',
 		start_url: mConfig.start_url || (config.root || '/'),
 		icons: mConfig.icons.map(icon => {
-			let width, matches = /-(\d{1,5})(px)?((x|-)?\d{1,5})?/i.exec(icon);
-			width = matches && matches[1] ? matches[1] : imageWidth('../source/' + icon);
+			let matches = /-(\d{1,5})(px)?((x|-)?\d{1,5})?/i.exec(icon);
+			let width = matches && matches[1] ? matches[1] : imageWidth('../source/' + icon);
 			
 			return {src: icon, sizes: `${width}x${width}`, type: 'image/png'};
 		}),
