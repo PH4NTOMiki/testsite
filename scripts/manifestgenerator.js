@@ -24,5 +24,5 @@ function manifestGenerator(site) {
 	
 	if(!manifest.short_name)delete manifest.short_name;
 	
-	return {path: 'manifest.json', data: JSON.stringify(manifest, null, 4)};
+	return {path: 'manifest.json', data: JSON.stringify(manifest, null, '\t')};
 }
