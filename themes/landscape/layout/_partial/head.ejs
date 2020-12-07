@@ -10,6 +10,7 @@
   if(!og.includes('og:image')){var source=config.cdn||config.url;
   og+='<meta property="og:image" content="'+source+'/images/001.jpg"><meta property="og:image" content="'+source+'/images/002.jpg"><meta property="og:image" content="'+source+'/images/004.jpg"><meta property="twitter:image" content="'+source+'/images/004.jpg">';
   }
+  function firstLetterUpperCase(str){return str.charAt(0).toUpperCase() + str.slice(1);}
   if (is_archive()){
     title = __('archive_a');
 
@@ -19,9 +20,9 @@
       title += ': ' + page.year;
     }
   } else if (is_category()){
-    title = __('category') + ': ' + page.category;
+    title = __('category') + ': ' + firstLetterUpperCase(page.category);
   } else if (is_tag()){
-    title = __('tag') + ': ' + page.tag;
+    title = __('tag') + ': ' + firstLetterUpperCase(page.tag);
   }
   %>
   <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
