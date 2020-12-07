@@ -20,7 +20,7 @@
       title += ': ' + page.year;
     }
   } else if (is_category()){
-    title = __('category') + ': ' + firstLetterUpperCase(page.category);
+    title = /*__('category') + ': ' +*/ firstLetterUpperCase(page.category);
   } else if (is_tag()){
     title = __('tag') + ': ' + firstLetterUpperCase(page.tag);
   }
