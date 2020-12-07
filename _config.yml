@@ -19,6 +19,11 @@ manifest:
     - favicon-128.png
     - favicon-192.png
     - favicon-512.png
+    
+open_graph_images:
+  - images/001.jpg
+  - images/002.jpg
+  - images/004.jpg
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
