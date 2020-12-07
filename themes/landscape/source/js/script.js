@@ -86,7 +86,7 @@
   });
 
   // Caption
-  function galleryMaker(){$('.article-entry').each(function(i){
+  function galleryMaker(first){$('.article-entry').each(function(i){
     $(this).find('img').each(function(){
       if ($(this).parent().hasClass('fancybox')) return;
 
@@ -100,8 +100,8 @@
 	$(this).find('.fancybox').each(function(){
       $(this).attr('rel', 'article' + i);
     });
-	var $center = $(this).find('center');
-    if($center.attr('data-imgs')){var $this = $(this);
+	var $center = $(this).find('center[data-imgs]');
+    if($center){var $this = $(this);
       function loadImages(){
 	  var imgs = $center.attr('data-imgs').split(','), galleryName = imgs[0];
       $center.append($.map(imgs.slice(1),function(curr){
