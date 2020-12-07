@@ -87,21 +87,23 @@
 
   // Caption
   function galleryMaker(first){$('.article-entry').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
+    var $this = $(this);
+	$this.find('img').each(function(){
+      var $this2 = $(this);
+	  if ($this2.parent().hasClass('fancybox')) return;
 
       var alt = this.alt;
 
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      if (alt) $this2.after('<span class="caption">' + alt + '</span>');
 
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+      $this2.wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
     });
 
-	$(this).find('.fancybox').each(function(){
+	$this.find('.fancybox').each(function(){
       $(this).attr('rel', 'article' + i);
     });
-	var $center = $(this).find('center[data-imgs]');
-    if($center){var $this = $(this);
+	var $center = $this.find('center[data-imgs]');
+    if($center.length){/*var $this = $(this);*/
       function loadImages(){
 	  var imgs = $center.attr('data-imgs').split(','), galleryName = imgs[0];
       $center.append($.map(imgs.slice(1),function(curr){
