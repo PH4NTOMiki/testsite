@@ -102,20 +102,17 @@
     });
 	var $center = $(this).find('center');
     if($center.attr('data-imgs')){var $this = $(this);
-      function trigger(){
+      $(window).on('load',function(){
 	  var imgs = $center.attr('data-imgs').split(','), galleryName = imgs[0];
       $center.append($.map(imgs.slice(1),function(curr){
 		  var thumb=curr.split('.');thumb[thumb.length-2]+='-thumb';
 		  return '<a class="fancybox" href="<%-c.cdn%><%- c.root && c.root.length>1 ? c.root : c.startslash %>images/'+galleryName+'/'+curr+'" rel="article'+i+'"><img class="gallth" width="200px" height="160px" src="<%-c.cdn%><%- c.root && c.root.length>1 ? c.root : c.startslash %>images/'+galleryName+'/'+thumb.join('.')+'" alt="'/*+curr.split('.').slice(0,-1).join('.')*/+'"></a>';
 	  }).join(''));
 	  $center.removeAttr('data-imgs');
-	  };
-	  
-	  if(first)$(window).on('load', trigger);
-	  else trigger();
+	  });
     }
   });}
-  galleryMaker(true);
+  galleryMaker();
 
   if ($.fancybox){
     $('.fancybox').fancybox();
