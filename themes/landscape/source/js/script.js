@@ -1,6 +1,18 @@
 Array.prototype.map||(Array.prototype.map=function(r){var t,n,o;if(null==this)throw new TypeError("this is null or not defined");var e=Object(this),i=e.length>>>0;if("function"!=typeof r)throw new TypeError(r+" is not a function");for(arguments.length>1&&(t=arguments[1]),n=new Array(i),o=0;o<i;){var a,p;o in e&&(a=e[o],p=r.call(t,a,o,e),n[o]=p),o++}return n});
 (function($){<% if (c.ajaxloader){ %>window.checkForUpdates = checkForUpdates;window.galleryMaker = galleryMaker;<% } %>
 window.logVisit = logVisit;
+
+function getAnchorTag(ev){
+	var elem = ev.target;
+	if('closest' in elem)return elem.closest('a');
+	var eventPath = ev.path || (ev.composedPath ? ev.composedPath() : null);
+	if(!eventPath)return;
+	for(var i = 0;i < eventPath.length;i++) {
+		if (!eventPath[i].nodeName || eventPath[i].nodeName.toLowerCase() !== 'a' || !eventPath[i].href) continue;
+		return eventPath[i];
+	}
+}
+
   // Search
   var $searchWrap = $('#search-form-wrap'),
     isSearchAnim = false,
@@ -85,6 +97,14 @@ window.logVisit = logVisit;
     e.stopPropagation();
 
     window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+  });
+
+  $(document).on('click', 'a' /*[href$=".pdf"]*/, function(ev){
+	  var el = ev.currentTarget || getAnchorTag(ev);
+	  if(el && !ev.ctrlKey && !ev.metaKey && !ev.shiftKey && !ev.defaultPrevented && el.href && ["http:", "https:"].indexOf(el.protocol) > -1 && ["pdf", "doc", "docx"].indexOf(el.href.toLowerCase().split('.').pop()) > -1 && ("http:" != el.protocol || "https:" != location.protocol) && !el.hasAttribute('download') && el.getAttribute('rel') !== 'external'){
+		  ev.preventDefault();
+		  SimpleLightbox.open({content:'<object style="width:92vw;height:92vh;" data="' + el.href + '" type="application/pdf"><iframe style="width:92vw;height:92vh;" frameborder="0" allowfullscreen src="https://docs.google.com/viewer?embedded=true&url=' + el.href + '"></iframe></object>',elementClass:"slbContentEl"});
+	  }
   });
 
   // Caption
