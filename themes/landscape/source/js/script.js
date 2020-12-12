@@ -103,7 +103,8 @@ function getAnchorTag(ev){
 	  var el = ev.currentTarget || getAnchorTag(ev);
 	  if(el && !ev.ctrlKey && !ev.metaKey && !ev.shiftKey && !ev.defaultPrevented && el.href && ["http:", "https:"].indexOf(el.protocol) > -1 && ["pdf", "doc", "docx"].indexOf(el.href.toLowerCase().split('.').pop()) > -1 && ("http:" != el.protocol || "https:" != location.protocol) && !el.hasAttribute('download') && el.getAttribute('rel') !== 'external'){
 		  ev.preventDefault();
-		  SimpleLightbox.open({content:'<object style="width:92vw;height:92vh;" data="' + el.href + '" type="application/pdf"><iframe style="width:92vw;height:92vh;" frameborder="0" allowfullscreen src="https://docs.google.com/viewer?embedded=true&url=' + el.href + '"></iframe></object>',elementClass:"slbContentEl"});
+		  var isPdf = el.href.toLowerCase().split('.').pop() === 'pdf';
+		  SimpleLightbox.open({content: (isPdf ? '<object style="width:92vw;height:92vh;" data="' + el.href + '" type="application/pdf">' : '') + '<iframe style="width:92vw;height:92vh;" frameborder="0" allowfullscreen src="https://docs.google.com/viewer?embedded=true&url=' + el.href + '"></iframe>' + (isPdf ? '</object>' : ''), elementClass:"slbContentEl"});
 	  }
   });
 
