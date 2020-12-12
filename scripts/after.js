@@ -54,8 +54,9 @@ hexo.extend.filter.register('after_render:js', (js, data)=>{
 	if(data.path.toLowerCase().endsWith('script.js') && hconf.localresources && hconf.fusecombined){
 		js = fs.readFileSync(path.join(data.path, '..', 'fuse.min.js')).toString() + '\n' + js;
 	}
-	if(data.path.toLowerCase().endsWith('jquery.2.0.3.min.js') && hconf.fancyboxjscombined){
-		js += jsminify(hexo, fs.readFileSync(path.join(data.path, '..', '..', 'fancybox', 'jquery.fancybox.pack.js')).toString());
+	if(data.path.toLowerCase().endsWith('jquery.2.0.3.min.js')){
+		if(hconf.fancyboxjscombined)js += jsminify(hexo, fs.readFileSync(path.join(data.path, '..', '..', 'fancybox', 'jquery.fancybox.pack.js')).toString());
+		if(hconf.simplelightboxcombined)js += jsminify(hexo, fs.readFileSync(path.join(data.path, '..', 'simplelightbox.js')).toString());
 	}
 	return js;
 });

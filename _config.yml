@@ -116,6 +116,7 @@ localresources: true
 fusecombined: true
 fancyboxcsscombined: true
 fancyboxjscombined: true
+simplelightboxcombined: true
 scriptdefer: true
 olderiesupport: true
 #enablerelativepaths: true
