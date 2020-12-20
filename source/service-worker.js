@@ -87,7 +87,7 @@ self.addEventListener('fetch', function (event) {
 
 	// HTML files
 	// Network-first
-	if (request.headers.get('Accept').includes('text/html') || request.url.endsWith('/') || request.url.toLowerCase().endsWith('.js') || request.url.toLowerCase().endsWith('.css')) {
+	if (request.headers.get('Accept').includes('text/html') || request.headers.get('Accept').includes('/css') || request.headers.get('Accept').includes('/javascript') || request.url.endsWith('/') || request.url.toLowerCase().split('?')[0].endsWith('.js') || request.url.toLowerCase().split('?')[0].endsWith('.css')) {
 		event.respondWith(
 			fetch(request).then(function (response) {
 				if (response.type !== 'opaque') {
