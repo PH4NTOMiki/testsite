@@ -100,7 +100,7 @@ self.addEventListener('fetch', function (event) {
 			}).catch(function (error) {
 				return caches.match(request).then(function (response) {
 					if(response)return response;
-					if(request.headers.get('Accept').includes('/css') || request.headers.get('Accept').includes('/javascript'))return;
+					if(request.headers.get('Accept').includes('/css') || request.headers.get('Accept').includes('/javascript'))return new Response('', {status: 500, statusText: 'offline'});
 					return caches.match('/offline/');
 				});
 			})
