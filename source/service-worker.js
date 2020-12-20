@@ -99,7 +99,9 @@ self.addEventListener('fetch', function (event) {
 				return response;
 			}).catch(function (error) {
 				return caches.match(request).then(function (response) {
-					return response || caches.match('/offline/');
+					if(response)return response;
+					if(request.headers.get('Accept').includes('/css') || request.headers.get('Accept').includes('/javascript'))return;
+					return caches.match('/offline/');
 				});
 			})
 		);
