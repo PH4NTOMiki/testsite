@@ -46,8 +46,11 @@ var trimCache = function (key, max) {
 self.addEventListener('install', function (event) {
 	self.skipWaiting();
 	event.waitUntil(caches.open(coreID).then(function (cache) {
-		cache.add(new Request('/offline/'));
-		cache.add(new Request('/favicon.ico'));
+		['/offline/', '/favicon.ico', '/'].forEach(function(e){
+			cache.add(new Request(e));
+		});
+		//cache.add(new Request('/offline/'));
+		//cache.add(new Request('/favicon.ico'));
 		// cache.add(new Request('/css/images/banner.jpg'));
 		/* fontFiles.forEach(function (file) {
 			cache.add(new Request(file));
