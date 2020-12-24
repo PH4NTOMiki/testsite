@@ -1,4 +1,5 @@
 var version = 'worker_1.0.0';
+var filesToCache = ['/offline/', '/favicon.ico', '/'];
 // Cache IDs
 var coreID = version + '_core';
 var pageID = version + '_pages';
@@ -46,7 +47,7 @@ var trimCache = function (key, max) {
 self.addEventListener('install', function (event) {
 	self.skipWaiting();
 	event.waitUntil(caches.open(coreID).then(function (cache) {
-		['/offline/', '/favicon.ico', '/'].forEach(function(e){
+		filesToCache.forEach(function(e){
 			cache.add(new Request(e));
 		});
 		//cache.add(new Request('/offline/'));
