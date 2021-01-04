@@ -99,8 +99,10 @@ self.addEventListener('fetch', function (event) {
 						const url = new URL(request.url);
 						if(location.origin !== url.origin || !filesToCache.includes(url.pathname))return Promise.resolve();
 						return caches.open(coreID).then(function (cache) {
-							console.log('opened core cache, caching ', request.url);
-							return cache.put(request, copy.clone());
+							console.log('opened core cache', cache, 'caching ', request.url);
+							let a = cache.put(request, copy.clone());
+							console.log(a)
+							return a;
 						})
 					}));
 				}
