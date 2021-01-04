@@ -95,6 +95,11 @@ self.addEventListener('fetch', function (event) {
 					var copy = response.clone();
 					event.waitUntil(caches.open(pageID).then(function (cache) {
 						return cache.put(request, copy);
+					}).then(function() {
+						if(!filesToCache.includes(request.url))return Promise.resolve();
+						return caches.open(coreID).then(function (cache) {
+							return cache.put(request, response.clone());
+						})
 					}));
 				}
 				return response;
@@ -121,6 +126,11 @@ self.addEventListener('fetch', function (event) {
 						var copy = response.clone();
 						event.waitUntil(caches.open(imgID).then(function (cache) {
 							return cache.put(request, copy);
+						}).then(function() {
+							if(!filesToCache.includes(request.url))return Promise.resolve();
+							return caches.open(coreID).then(function (cache) {
+								return cache.put(request, response.clone());
+							})
 						}));
 					}
 
