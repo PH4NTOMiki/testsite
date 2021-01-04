@@ -100,7 +100,7 @@ self.addEventListener('fetch', function (event) {
 						if(location.origin !== url.origin || !filesToCache.includes(url.pathname))return Promise.resolve();
 						return caches.open(coreID).then(function (cache) {
 							//console.log('opened core cache, caching ', request.url);
-							return cache.put(request, response.clone());
+							return cache.put(request, copy.clone());
 						})
 					}));
 				}
@@ -132,7 +132,7 @@ self.addEventListener('fetch', function (event) {
 							const url = new URL(request.url);
 							if(location.origin !== url.origin || !filesToCache.includes(url.pathname))return Promise.resolve();
 							return caches.open(coreID).then(function (cache) {
-								return cache.put(request, response.clone());
+								return cache.put(request, copy.clone());
 							})
 						}));
 					}
