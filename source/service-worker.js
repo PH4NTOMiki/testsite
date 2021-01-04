@@ -102,7 +102,7 @@ self.addEventListener('fetch', function (event) {
 						return caches.open(coreID).then(function (cache) {
 							//console.log('opened core cache', cache, 'caching ', request.url);
 							let a = cache.put(request, copy2);
-							console.log(a)
+							//console.log(a)
 							return a;
 						})
 					}));
