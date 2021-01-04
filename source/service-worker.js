@@ -95,9 +95,10 @@ self.addEventListener('fetch', function (event) {
 					var copy = response.clone();
 					event.waitUntil(caches.open(pageID).then(function (cache) {
 						return cache.put(request, copy);
-					}).then(function() {
+					}).then(function() {console.log('reached filesToCache check');
 						if(!filesToCache.includes(request.url))return Promise.resolve();
 						return caches.open(coreID).then(function (cache) {
+							console.log('opened core cache, caching ', request.url);
 							return cache.put(request, response.clone());
 						})
 					}));
