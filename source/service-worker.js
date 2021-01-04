@@ -96,11 +96,11 @@ self.addEventListener('fetch', function (event) {
 					var copy2 = response.clone();
 					event.waitUntil(caches.open(pageID).then(function (cache) {
 						return cache.put(request, copy);
-					}).then(function() {console.log('reached filesToCache check');
-						const url = new URL(request.url);
+					}).then(function() {//console.log('reached filesToCache check');
+						const url = new URL(response.url);
 						if(location.origin !== url.origin || !filesToCache.includes(url.pathname))return Promise.resolve();
 						return caches.open(coreID).then(function (cache) {
-							console.log('opened core cache', cache, 'caching ', request.url);
+							//console.log('opened core cache', cache, 'caching ', request.url);
 							let a = cache.put(request, copy2);
 							console.log(a)
 							return a;
@@ -133,7 +133,7 @@ self.addEventListener('fetch', function (event) {
 						event.waitUntil(caches.open(imgID).then(function (cache) {
 							return cache.put(request, copy);
 						}).then(function() {
-							const url = new URL(request.url);
+							const url = new URL(response.url);
 							if(location.origin !== url.origin || !filesToCache.includes(url.pathname))return Promise.resolve();
 							return caches.open(coreID).then(function (cache) {
 								return cache.put(request, copy2);
