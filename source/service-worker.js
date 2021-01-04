@@ -93,6 +93,7 @@ self.addEventListener('fetch', function (event) {
 			fetch(request).then(function (response) {
 				if (response.type !== 'opaque') {
 					var copy = response.clone();
+					var copy2 = response.clone();
 					event.waitUntil(caches.open(pageID).then(function (cache) {
 						return cache.put(request, copy);
 					}).then(function() {console.log('reached filesToCache check');
@@ -100,7 +101,7 @@ self.addEventListener('fetch', function (event) {
 						if(location.origin !== url.origin || !filesToCache.includes(url.pathname))return Promise.resolve();
 						return caches.open(coreID).then(function (cache) {
 							console.log('opened core cache', cache, 'caching ', request.url);
-							let a = cache.put(request, copy.clone());
+							let a = cache.put(request, copy2);
 							console.log(a)
 							return a;
 						})
@@ -128,13 +129,14 @@ self.addEventListener('fetch', function (event) {
 					// If an image, stash a copy of this image in the images cache
 					if (request.headers.get('Accept').includes('image')) {
 						var copy = response.clone();
+						var copy2 = response.clone();
 						event.waitUntil(caches.open(imgID).then(function (cache) {
 							return cache.put(request, copy);
 						}).then(function() {
 							const url = new URL(request.url);
 							if(location.origin !== url.origin || !filesToCache.includes(url.pathname))return Promise.resolve();
 							return caches.open(coreID).then(function (cache) {
-								return cache.put(request, copy.clone());
+								return cache.put(request, copy2);
 							})
 						}));
 					}
