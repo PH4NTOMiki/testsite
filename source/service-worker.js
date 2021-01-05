@@ -124,7 +124,7 @@ self.addEventListener('fetch', function (event) {
 
 	// Images & Fonts
 	// Offline-first
-	if (request.headers.get('Accept').includes('image') /* || request.url.includes('pt-serif-v11') || request.url.includes('/css/fonts.css') */) {
+	if (request.headers.get('Accept').includes('image') || request.url.includes('//fonts.googleapis.com/') || request.url.includes('//fonts.gstatic.com/') || request.url.toLowerCase().includes('fontawesome')) {
 		event.respondWith(
 			caches.match(request).then(function (response) {
 				return response || fetch(request).then(function (response) {
