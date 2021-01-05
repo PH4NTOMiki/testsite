@@ -84,7 +84,10 @@ self.addEventListener('fetch', function (event) {
 	if (request.cache === 'only-if-cached' && request.mode !== 'same-origin') return;
 
 	// Ignore non-GET requests
-	if (request.method !== 'GET' || !request.url.startsWith('https://') || !request.url.startsWith('http://')) return;
+	if (request.method !== 'GET') return;
+
+	// Ignore protocols other than https and http
+	if(!(request.url.startsWith('https://') || request.url.startsWith('http://'))) return;
 
 	// HTML files
 	// Network-first
