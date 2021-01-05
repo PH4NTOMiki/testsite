@@ -127,7 +127,7 @@ self.addEventListener('fetch', function (event) {
 				return response || fetch(request).then(function (response) {
 
 					// If an image, stash a copy of this image in the images cache
-					if (request.headers.get('Accept').includes('image')) {
+					//if (request.headers.get('Accept').includes('image')) {
 						var copy = response.clone();
 						var copy2 = response.clone();
 						event.waitUntil(caches.open(imgID).then(function (cache) {
@@ -139,7 +139,7 @@ self.addEventListener('fetch', function (event) {
 								return cache.put(request, copy2);
 							})
 						}));
-					}
+					//}
 
 					// Return the requested file
 					return response;
