@@ -1,5 +1,5 @@
 var version = 'worker_1.0.0';
-var filesToCache = ['/offline/', '/favicon.ico', '/'];
+var filesToCache = ['/', '/offline/', '/favicon.ico'];
 // Cache IDs
 var coreID = version + '_core';
 var pageID = version + '_pages';
