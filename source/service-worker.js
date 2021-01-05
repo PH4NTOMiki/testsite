@@ -81,10 +81,10 @@ self.addEventListener('fetch', function (event) {
 
 	// Bug fix
 	// https://stackoverflow.com/a/49719964
-	if (event.request.cache === 'only-if-cached' && event.request.mode !== 'same-origin') return;
+	if (request.cache === 'only-if-cached' && request.mode !== 'same-origin') return;
 
 	// Ignore non-GET requests
-	if (request.method !== 'GET') return;
+	if (request.method !== 'GET' || !request.url.startsWith('https://') || !request.url.startsWith('http://')) return;
 
 	// HTML files
 	// Network-first
