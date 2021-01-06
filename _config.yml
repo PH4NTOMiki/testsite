@@ -13,7 +13,7 @@ language: bs
 timezone: 'Europe/Sarajevo'
 
 injectHeadStart: '<link rel="preload" href="/css/fonts/fontawesome-webfont.woff?v=#4.0.3" as="font">'
-#injectHeadStart: ''
+#injectHeadEnd: ''
 
 manifest:
   name: 'Osnovna Škola Vareš'
