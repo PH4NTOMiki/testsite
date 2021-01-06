@@ -2,6 +2,9 @@
 <html lang="<%- config.language %>">
 <head>
   <meta charset="utf-8">
+  <% if (config.injectHeadStart){ %>
+    <%- config.injectHeadStart %>
+  <% } %>
   <%- partial('google-analytics') %>
   <%
   var title = page.title;
@@ -46,4 +49,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   <% } %>
   <link rel="stylesheet<% if (false /*config.prefetchstyle*/){ %> prefetch<% } %>" href="<%- url_for('/css/style.css') %>">
+  <% if (config.injectHeadEnd){ %>
+    <%- config.injectHeadEnd %>
+  <% } %>
 </head>
