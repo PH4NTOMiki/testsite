@@ -1,4 +1,4 @@
-var version = 'worker_1.0.1';
+var version = 'worker_1.0.3';
 var filesToCache = ['/', '/offline/', '/favicon.ico'];
 // Cache IDs
 var coreID = version + '_core';
@@ -88,6 +88,9 @@ self.addEventListener('fetch', function (event) {
 
 	// Ignore protocols other than https and http
 	if(!(request.url.startsWith('https://') || request.url.startsWith('http://'))) return;
+
+	// Ignore wp-admin or wp-login routes if this site is Wordpress powered
+	if(['wp-admin', 'wp-login'].includes(location.href.split('?')[0].split('.php')[0].split('/').slice(3)[0])) return;
 
 	// HTML files
 	// Network-first
