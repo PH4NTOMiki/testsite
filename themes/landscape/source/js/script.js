@@ -2,6 +2,8 @@ Array.prototype.map||(Array.prototype.map=function(r){var t,n,o;if(null==this)th
 (function($){<% if (c.ajaxloader){ %>window.checkForUpdates = checkForUpdates;window.galleryMaker = galleryMaker;<% } %>
 window.logVisit = logVisit;
 
+document.body.ononline = function(ev){if($('meta[property="og:url"]').attr('content').indexOf('/offline/') > -1){location.reload()}};
+
 function getAnchorTag(ev){
 	var elem = ev.target;
 	if('closest' in elem)return elem.closest('a');
