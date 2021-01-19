@@ -25,8 +25,8 @@ var cacheIDs = [coreID, pageID, imgID];
 
 /**
  * Remove cached items over a certain number
- * @param  {string}  key The cache key
- * @param  {number} max The max number of items allowed
+ * @param {string} key The cache key
+ * @param {number} max The max number of items allowed
  */
 var trimCache = function (key, max) {
 	caches.open(key).then(function (cache) {
