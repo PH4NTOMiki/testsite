@@ -1,4 +1,4 @@
-var version = 'worker_1.0.5';
+var version = 'worker_1.0.7';
 var filesToCache = ['/', '/offline/', '/favicon.ico'];
 // Cache IDs
 var coreID = version + '_core';
@@ -25,8 +25,8 @@ var cacheIDs = [coreID, pageID, imgID];
 
 /**
  * Remove cached items over a certain number
- * @param  {String}  key The cache key
- * @param  {Integer} max The max number of items allowed
+ * @param  {string}  key The cache key
+ * @param  {number} max The max number of items allowed
  */
 var trimCache = function (key, max) {
 	caches.open(key).then(function (cache) {
@@ -77,7 +77,7 @@ self.addEventListener('activate', function (event) {
 self.addEventListener('fetch', function (event) {
 
 	// Get the request
-	var request = event.request;
+	const request = event.request;
 
 	// Bug fix
 	// https://stackoverflow.com/a/49719964
@@ -92,9 +92,11 @@ self.addEventListener('fetch', function (event) {
 	// Ignore wp-admin or wp-login routes if this site is Wordpress powered
 	if(['wp-admin', 'wp-login'].includes(location.href.split('?')[0].split('.php')[0].split('/').slice(3)[0])) return;
 
+	const acceptHeader = request.headers.get('Accept').toLowerCase();
+
 	// HTML files
 	// Network-first
-	if (request.headers.get('Accept').includes('text/html') || request.headers.get('Accept').includes('/css') || request.headers.get('Accept').includes('/javascript') || request.url.endsWith('/') || request.url.toLowerCase().split('?')[0].endsWith('.js') || request.url.toLowerCase().split('?')[0].endsWith('.css')) {
+	if (acceptHeader.includes('text/html') || acceptHeader.includes('/css') || acceptHeader.includes('/javascript') || request.url.endsWith('/') || request.url.toLowerCase().split('?')[0].endsWith('.js') || request.url.toLowerCase().split('?')[0].endsWith('.css')) {
 		event.respondWith(
 			fetch(request).then(function (response) {
 				if (response.type !== 'opaque') {
@@ -117,7 +119,7 @@ self.addEventListener('fetch', function (event) {
 			}).catch(function (error) {
 				return caches.match(request).then(function (response) {
 					if(response)return response;
-					if(request.headers.get('Accept').includes('/css') || request.headers.get('Accept').includes('/javascript'))return new Response('', {status: 500, statusText: 'offline'});
+					if(acceptHeader.includes('/css') || acceptHeader.includes('/javascript'))return new Response('', {status: 500, statusText: 'offline'});
 					return caches.match('/offline/');
 				});
 			})
@@ -127,13 +129,13 @@ self.addEventListener('fetch', function (event) {
 
 	// Images & Fonts
 	// Offline-first
-	if (request.headers.get('Accept').includes('image') || ['fonts.googleapis.com', 'fonts.gstatic.com'].includes(request.url.split('/')[2]) || request.url.toLowerCase().includes('fontawesome')) {
+	if (acceptHeader.includes('image') || acceptHeader.includes('font/') || ['fonts.googleapis.com', 'fonts.gstatic.com'].includes(request.url.split('/')[2]) || request.url.toLowerCase().includes('fontawesome')) {
 		event.respondWith(
 			caches.match(request).then(function (response) {
 				return response || fetch(request).then(function (response) {
 
 					// If an image, stash a copy of this image in the images cache
-					//if (request.headers.get('Accept').includes('image')) {
+					//if (acceptHeader.includes('image')) {
 						var copy = response.clone();
 						var copy2 = response.clone();
 						event.waitUntil(caches.open(imgID).then(function (cache) {
