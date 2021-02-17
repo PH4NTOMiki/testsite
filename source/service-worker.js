@@ -99,6 +99,7 @@ self.addEventListener('fetch', function (event) {
 	if (acceptHeader.includes('text/html') || acceptHeader.includes('/css') || acceptHeader.includes('/javascript') || request.url.endsWith('/') || request.url.toLowerCase().split('?')[0].endsWith('.js') || request.url.toLowerCase().split('?')[0].endsWith('.css')) {
 		event.respondWith(
 			fetch(request).then(function (response) {
+				if (!response.ok)return response;
 				if (response.type !== 'opaque') {
 					var copy = response.clone();
 					var copy2 = response.clone();
@@ -133,7 +134,7 @@ self.addEventListener('fetch', function (event) {
 		event.respondWith(
 			caches.match(request).then(function (response) {
 				return response || fetch(request).then(function (response) {
-
+					if (!response.ok)return response;
 					// If an image, stash a copy of this image in the images cache
 					//if (acceptHeader.includes('image')) {
 						var copy = response.clone();
